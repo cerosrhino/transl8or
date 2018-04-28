@@ -20,7 +20,7 @@ class BinaryView extends ChunkedDataView {
   parse(input) {
     input = input.replace(/\s/g, '');
     if (input.length % 8 !== 0 || /[^01]/i.test(input)) {
-      throw 'Incorrect input';
+      throw new Error('Incorrect input');
     }
 
     return decodeURIComponent(
@@ -32,7 +32,7 @@ class BinaryView extends ChunkedDataView {
 
   filter(input) {
     if (/[^01\s]/g.test(input)) {
-      throw 'Incorrect input';
+      throw new Error('Incorrect input');
     }
     return input;
   }

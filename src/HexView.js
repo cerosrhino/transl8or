@@ -27,7 +27,7 @@ class HexView extends ChunkedDataView {
   parse(input) {
     input = input.replace(/\s/g, '');
     if (input.length % 2 !== 0 || /[^0-9a-f]/i.test(input)) {
-      throw 'Incorrect input';
+      throw new Error('Incorrect input');
     }
 
     return decodeURIComponent(input.replace(/(.{2})/g, '%$1').toLowerCase());
@@ -35,7 +35,7 @@ class HexView extends ChunkedDataView {
 
   filter(input) {
     if (/[^0-9a-f\s]/gi.test(input)) {
-      throw 'Incorrect input';
+      throw new Error('Incorrect input');
     }
     return input;
   }

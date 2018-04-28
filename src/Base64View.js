@@ -12,7 +12,7 @@ class Base64View extends DataView {
 
   parse(input) {
     if (input.length % 4 !== 0 || /[^a-z0-9+=]/gi.test(input)) {
-      throw 'Incorrect input';
+      throw new Error('Incorrect input');
     }
 
     return decodeURIComponent(atob(input).replace(
@@ -23,7 +23,7 @@ class Base64View extends DataView {
 
   filter(input) {
     if (/[^a-z0-9+/=]/gi.test(input)) {
-      throw 'Incorrect input';
+      throw new Error('Incorrect input');
     }
     return input;
   }
