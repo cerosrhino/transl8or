@@ -10,7 +10,9 @@ class Base64View extends DataView {
 
   parse(input) {
     if (input.length % 4 !== 0 || /[^a-z0-9+=]/gi.test(input)) {
-      throw new Error('Incorrect input');
+      throw new Error(
+        'Incorrect number of characters or illegal character(s) in input'
+      );
     }
 
     return this.codec.decode(atob(input).split(''));
@@ -18,7 +20,7 @@ class Base64View extends DataView {
 
   filter(input) {
     if (/[^a-z0-9+/=]/gi.test(input)) {
-      throw new Error('Incorrect input');
+      throw new Error('Illegal character(s) in input');
     }
     
     return input;

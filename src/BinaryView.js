@@ -19,7 +19,9 @@ class BinaryView extends ChunkedDataView {
   parse(input) {
     input = input.replace(/\s/g, '');
     if (input.length % 8 !== 0 || /[^01]/i.test(input)) {
-      throw new Error('Incorrect number of characters in input');
+      throw new Error(
+        'Incorrect number of characters or illegal characters(s) in input'
+      );
     }
 
     return this.codec.decode(input.replace(
