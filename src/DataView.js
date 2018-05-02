@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import Codec from './Codec';
 
 class DataView extends Component {
   constructor(props) {
     super(props);
+
+    this.codec = new Codec();
 
     this.state = {
       value: ''

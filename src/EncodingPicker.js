@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
+import Codec from './Codec';
 
 class EncodingPicker extends Component {
   constructor() {
     super();
 
-    this.options = [
-      'UTF-8',
-      'UTF-16BE',
-      'UTF-16LE',
-      'UTF-32BE',
-      'UTF-32LE'
-    ]
+    this.options = [];
+    for (let [key, value] of Codec.encodings()) {
+      this.options.push(Symbol.keyFor(value));
+    }
   }
 
   handleChange = (event) => {

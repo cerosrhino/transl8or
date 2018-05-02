@@ -50,7 +50,8 @@ class HexView extends ChunkedDataView {
   }
 
   handleEncodingChange = (value) => {
-    alert(value);
+    // alert(value);
+    this.codec.setEncoding(value);
   }
 
   render() {
