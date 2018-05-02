@@ -5,10 +5,7 @@ class EncodingPicker extends Component {
   constructor() {
     super();
 
-    this.options = [];
-    for (let encoding of Codec.encodings()) {
-      this.options.push(Symbol.keyFor(encoding));
-    }
+    this.options = Codec.encodings();
   }
 
   handleChange = (event) => {

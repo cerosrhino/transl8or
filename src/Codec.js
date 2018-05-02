@@ -1,22 +1,22 @@
 const _encodings = [
-  Symbol.for('UTF-8'),
-  Symbol.for('UTF-16LE'),
-  Symbol.for('UTF-16BE'),
-  Symbol.for('UTF-32LE'),
-  Symbol.for('UTF-32BE')
+  'UTF-8',
+  'UTF-16LE',
+  'UTF-16BE',
+  'UTF-32LE',
+  'UTF-32BE'
 ];
 
 class Codec {
-  constructor(encoding = Symbol.for('UTF-8')) {
+  constructor(encoding = _encodings.indexOf('UTF-8')) {
     this.encoding = encoding;
   }
 
   setEncoding(encoding) {
-    this.encoding = Symbol.for(encoding);
+    this.encoding = _encodings.indexOf(encoding);
   }
 
   encode(text) {
-    switch (Symbol.keyFor(this.encoding)) {
+    switch (_encodings[this.encoding]) {
       default:
       case 'UTF-8':
         return encodeURIComponent(text).replace(
@@ -35,7 +35,7 @@ class Codec {
   }
 
   decode(data) {
-    switch (Symbol.keyFor(this.encoding)) {
+    switch (_encodings[this.encoding]) {
       default:
       case 'UTF-8':
         return decodeURIComponent(
@@ -52,10 +52,6 @@ class Codec {
       case 'UTF-32BE':
         return this.decodeUTF32(data, false);
     }
-  }
-
-  static encodings() {
-    return _encodings;
   }
 
   encodeUTF16(text, littleEndian) {
@@ -140,6 +136,10 @@ class Codec {
     }
     
     return string;
+  }
+
+  static encodings() {
+    return [..._encodings];
   }
 }
 
