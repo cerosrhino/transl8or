@@ -7,17 +7,19 @@ const _encodings = [
 ];
 
 class Codec {
-  constructor(encoding = _encodings.indexOf('UTF-8')) {
-    this.encoding = encoding;
+  constructor(encoding = 'UTF-8') {
+    this.setEncoding(encoding);
   }
 
   setEncoding(encoding) {
-    this.encoding = _encodings.indexOf(encoding);
+    if (_encodings.indexOf(encoding) === -1) {
+      throw new Error('Unknown encoding');
+    }
+    this.encoding = encoding;
   }
 
   encode(text) {
-    switch (_encodings[this.encoding]) {
-      default:
+    switch (this.encoding) {
       case 'UTF-8':
         return encodeURIComponent(text).replace(
           /%([0-9a-f]{2})/gi,
@@ -31,12 +33,13 @@ class Codec {
         return this.encodeUTF32(text, true);
       case 'UTF-32BE':
         return this.encodeUTF32(text, false);
+      default:
+        throw new Error('Unknown encoding');
     }
   }
 
   decode(data) {
-    switch (_encodings[this.encoding]) {
-      default:
+    switch (this.encoding) {
       case 'UTF-8':
         return decodeURIComponent(
           '%' + data.map(
@@ -51,6 +54,8 @@ class Codec {
         return this.decodeUTF32(data, true);
       case 'UTF-32BE':
         return this.decodeUTF32(data, false);
+      default:
+        throw new Error('Unknown encoding');
     }
   }
 
