@@ -2,6 +2,7 @@
   "name": "transl8or",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://cerosrhino.github.io/transl8or",
   "dependencies": {
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
