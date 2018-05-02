@@ -6,8 +6,8 @@ class EncodingPicker extends Component {
     super();
 
     this.options = [];
-    for (let [key, value] of Codec.encodings()) {
-      this.options.push(Symbol.keyFor(value));
+    for (let encoding of Codec.encodings()) {
+      this.options.push(Symbol.keyFor(encoding));
     }
   }
 

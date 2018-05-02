@@ -10,12 +10,10 @@ class HexView extends ChunkedDataView {
   }
 
   format(input) {
-    let output = Array.prototype.map.call(encodeURIComponent(input).replace(
-      /%([0-9a-f]{2})/gi,
-      (_, match) => String.fromCharCode(parseInt(match, 16))
-    ), (el) => el.charCodeAt(0).toString(16).padStart(2, '0')).join(
-      this.state.separator
-    );
+    let output = this.codec
+      .encode(input)
+      .map(el => el.charCodeAt(0).toString(16).padStart(2, '0'))
+      .join(this.state.separator);
 
     if (this.state.useUppercase) {
       output = output.toUpperCase();
@@ -30,7 +28,10 @@ class HexView extends ChunkedDataView {
       throw new Error('Incorrect input');
     }
 
-    return decodeURIComponent(input.replace(/(.{2})/g, '%$1').toLowerCase());
+    return this.codec.decode(input.replace(
+      /(.{2})/g,
+      (_, match) => String.fromCharCode(parseInt(match, 16))
+    ).split(''));
   }
 
   filter(input) {
@@ -50,7 +51,6 @@ class HexView extends ChunkedDataView {
   }
 
   handleEncodingChange = (value) => {
-    // alert(value);
     this.codec.setEncoding(value);
   }
 
