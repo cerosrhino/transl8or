@@ -25,7 +25,7 @@ class HexView extends ChunkedDataView {
   parse(input) {
     input = input.replace(/\s/g, '');
     if (input.length % 2 !== 0 || /[^0-9a-f]/i.test(input)) {
-      throw new Error('Incorrect input');
+      throw new Error('Incorrect number of characters in input');
     }
 
     return this.codec.decode(input.replace(
@@ -36,8 +36,9 @@ class HexView extends ChunkedDataView {
 
   filter(input) {
     if (/[^0-9a-f\s]/gi.test(input)) {
-      throw new Error('Incorrect input');
+      throw new Error('Illegal character(s) in input');
     }
+
     return input;
   }
 
@@ -50,17 +51,14 @@ class HexView extends ChunkedDataView {
     }));
   }
 
-  handleEncodingChange = (value) => {
-    this.codec.setEncoding(value);
-  }
-
   render() {
     return (
       <div>
         <p>
           Hexadecimal <EncodingPicker onChange={this.handleEncodingChange}/>
         </p>
-        <textarea spellCheck="false"
+        <textarea
+          spellCheck="false"
           onChange={this.handleChange}
           value={this.state.value}/>
         <Toggler text="With spaces" onChange={this.handleSpacesChange}/>

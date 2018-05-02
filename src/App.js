@@ -18,7 +18,7 @@ class App extends Component {
       text: value
     });
   }
-
+  
   render() {
     return (
       <div className="App">

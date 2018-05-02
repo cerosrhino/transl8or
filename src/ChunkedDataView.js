@@ -13,7 +13,8 @@ class ChunkedDataView extends DataView {
       separator: checked ? ' ' : '',
       value: checked ?
         prevState.value.replace(
-          new RegExp(`(.{1,${this.chunkLength}})`, 'g'), '$1 ').trim() :
+          new RegExp(`(.{1,${this.chunkLength}})`, 'g'), '$1 '
+        ).trim() :
         prevState.value.replace(/\s/g, '')
     }));
   }

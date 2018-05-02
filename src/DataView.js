@@ -40,6 +40,13 @@ class DataView extends Component {
       console.log(e);
     }
   }
+  
+  handleEncodingChange = (value) => {
+    this.codec.setEncoding(value);
+    this.setState((prevState, props) => ({
+      value: this.format(props.text)
+    }));
+  }
 
   render() {
     return (

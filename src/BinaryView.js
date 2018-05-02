@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ChunkedDataView from './ChunkedDataView';
+import EncodingPicker from './EncodingPicker';
 import Toggler from './Toggler';
 
 class BinaryView extends ChunkedDataView {
@@ -9,30 +10,27 @@ class BinaryView extends ChunkedDataView {
   }
 
   format(input) {
-    return Array.prototype.map.call(encodeURIComponent(input).replace(
-      /%([0-9a-f]{2})/gi,
-      (_, match) => String.fromCharCode(parseInt(match, 16))
-    ), (el) => el.charCodeAt(0).toString(2).padStart(8, '0')).join(
-      this.state.separator
-    );
+    return this.codec
+      .encode(input)
+      .map(el => el.charCodeAt(0).toString(2).padStart(8, '0'))
+      .join(this.state.separator);
   }
 
   parse(input) {
     input = input.replace(/\s/g, '');
     if (input.length % 8 !== 0 || /[^01]/i.test(input)) {
-      throw new Error('Incorrect input');
+      throw new Error('Incorrect number of characters in input');
     }
 
-    return decodeURIComponent(
-      input.replace(/(.{8})/g, (_, match) => {
-        return '%' + parseInt(match, 2).toString(16).padStart(2, '0')
-      })
-    );
+    return this.codec.decode(input.replace(
+      /(.{8})/g,
+      (_, match) => String.fromCharCode(parseInt(match, 2))
+    ).split(''));
   }
 
   filter(input) {
     if (/[^01\s]/g.test(input)) {
-      throw new Error('Incorrect input');
+      throw new Error('Illegal character(s) in input');
     }
     return input;
   }
@@ -40,7 +38,9 @@ class BinaryView extends ChunkedDataView {
   render() {
     return (
       <div>
-        <p>Binary</p>
+        <p>
+          Binary <EncodingPicker onChange={this.handleEncodingChange}/>
+        </p>
         <textarea
           spellCheck="false"
           onChange={this.handleChange}
