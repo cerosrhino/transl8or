@@ -13,7 +13,7 @@ class BinaryView extends ChunkedDataView {
     return this.codec
       .encode(input)
       .map(el => el.charCodeAt(0).toString(2).padStart(8, '0'))
-      .join(this.state.separator);
+      .join(this.separator);
   }
 
   parse(input) {
@@ -34,6 +34,7 @@ class BinaryView extends ChunkedDataView {
     if (/[^01\s]/g.test(input)) {
       throw new Error('Illegal character(s) in input');
     }
+    
     return input;
   }
 

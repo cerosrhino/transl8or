@@ -97,6 +97,7 @@ class Codec {
     if (data.length % 2 !== 0) {
       throw new Error('Wrong data chunk size');
     }
+
     let string = '';
     for (let i = 0; i < data.length; i += 2) {
       let charCode;
@@ -107,6 +108,7 @@ class Codec {
       }
       string += String.fromCharCode(charCode);
     }
+
     return string;
   }
 
@@ -114,6 +116,7 @@ class Codec {
     if (data.length % 4 !== 0) {
       throw new Error('Wrong data chunk size');
     }
+
     let string = '';
     for (let i = 0; i < data.length; i += 4) {
       let codePoint;
@@ -132,6 +135,7 @@ class Codec {
       }
       string += String.fromCodePoint(codePoint);
     }
+    
     return string;
   }
 }

@@ -43,9 +43,9 @@ class DataView extends Component {
   
   handleEncodingChange = (value) => {
     this.codec.setEncoding(value);
-    this.setState((prevState, props) => ({
-      value: this.format(props.text)
-    }));
+    this.setState({
+      value: this.format(this.props.text)
+    });
   }
 
   render() {

@@ -13,9 +13,9 @@ class HexView extends ChunkedDataView {
     let output = this.codec
       .encode(input)
       .map(el => el.charCodeAt(0).toString(16).padStart(2, '0'))
-      .join(this.state.separator);
+      .join(this.separator);
 
-    if (this.state.useUppercase) {
+    if (this.useUppercase) {
       output = output.toUpperCase();
     }
 
@@ -45,12 +45,10 @@ class HexView extends ChunkedDataView {
   }
 
   handleCaseChange = (checked) => {
-    this.setState((prevState, props) => ({
-      useUppercase: checked,
-      value: checked ?
-        prevState.value.toUpperCase() :
-        prevState.value.toLowerCase()
-    }));
+    this.useUppercase = checked;
+    this.setState({
+      value: this.format(this.props.text)
+    });
   }
 
   render() {
