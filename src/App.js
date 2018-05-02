@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import UnicodeView from './UnicodeView';
-import BinaryView from './BinaryView';
-import HexView from './HexView';
-import Base64View from './Base64View';
+import UnicodeView from './components/UnicodeView';
+import BinaryView from './components/BinaryView';
+import HexView from './components/HexView';
+import Base64View from './components/Base64View';
 import './App.css';
 
 class App extends Component {

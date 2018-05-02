@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Codec from './Codec';
+import Codec from '../Codec';
 
 class DataView extends Component {
   constructor(props) {

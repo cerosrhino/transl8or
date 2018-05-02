@@ -74,13 +74,16 @@ class Codec {
     return Array.prototype.concat.apply([], characters);
   }
 
+  splitByCodePoints(text) {
+    return [...text];
+  }
+
   encodeUTF32(text, littleEndian) {
     const arrayFunc = littleEndian ?
                         Array.prototype.push :
                         Array.prototype.unshift;
     
-    // spread operator allows splitting by code points
-    let characters = [...text].map(el => {
+    let characters = this.splitByCodePoints(text).map(el => {
       let codePoint = el.codePointAt(0);
       let chunk = [];
       for (let i = 0; i < 4; i++) {
