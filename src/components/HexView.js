@@ -53,15 +53,16 @@ class HexView extends ChunkedDataView {
 
   render() {
     return (
-      <div>
-        <p>
+      <div className="encoding-block">
+        <p className="encoding-block__title">
           Hexadecimal <EncodingPicker onChange={this.handleEncodingChange}/>
         </p>
         <textarea
+          className="encoding-block__textarea"
           spellCheck="false"
           onChange={this.handleChange}
           value={this.state.value}/>
-        <div>
+        <div className="encoding-block__options">
           <Toggler text="With spaces" onChange={this.handleSpacesChange}/>
           <Toggler text="Uppercase" onChange={this.handleCaseChange}/>
         </div>

@@ -40,15 +40,18 @@ class BinaryView extends ChunkedDataView {
 
   render() {
     return (
-      <div>
-        <p>
+      <div className="encoding-block">
+        <p className="encoding-block__title">
           Binary <EncodingPicker onChange={this.handleEncodingChange}/>
         </p>
         <textarea
+          className="encoding-block__textarea"
           spellCheck="false"
           onChange={this.handleChange}
           value={this.state.value}/>
-        <Toggler text="With spaces" onChange={this.handleSpacesChange}/>
+        <div className="encoding-block__options">
+          <Toggler text="With spaces" onChange={this.handleSpacesChange}/>
+        </div>
       </div>
     );
   }

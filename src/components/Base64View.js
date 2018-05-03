@@ -28,11 +28,12 @@ class Base64View extends DataView {
   
   render() {
     return (
-      <div>
-        <p>
+      <div className="encoding-block">
+        <p className="encoding-block__title">
           Base64 <EncodingPicker onChange={this.handleEncodingChange}/>
         </p>
         <textarea
+          className="encoding-block__textarea"
           spellCheck="false"
           onChange={this.handleChange}
           value={this.state.value}/>

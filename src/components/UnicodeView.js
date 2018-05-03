@@ -4,9 +4,10 @@ import DataView from './DataView';
 class UnicodeView extends DataView {
   render() {
     return (
-      <div>
-        <p>Text (Unicode)</p>
+      <div className="encoding-block">
+        <p className="encoding-block__title">Text (Unicode)</p>
         <textarea
+          className="encoding-block__textarea"
           spellCheck="false"
           onChange={this.handleChange}
           value={this.state.value}/>
