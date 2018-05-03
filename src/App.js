@@ -21,8 +21,8 @@ class App extends Component {
   
   render() {
     return (
-      <div className="App">
-        <div id="App-grid">
+      <div id="app">
+        <div id="grid">
           <UnicodeView text={this.state.text} onChange={this.handleChange}/>
           <BinaryView text={this.state.text} onChange={this.handleChange}/>
           <HexView text={this.state.text} onChange={this.handleChange}/>
