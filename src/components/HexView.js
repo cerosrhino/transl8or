@@ -61,8 +61,10 @@ class HexView extends ChunkedDataView {
           spellCheck="false"
           onChange={this.handleChange}
           value={this.state.value}/>
-        <Toggler text="With spaces" onChange={this.handleSpacesChange}/>
-        <Toggler text="Uppercase" onChange={this.handleCaseChange}/>
+        <div>
+          <Toggler text="With spaces" onChange={this.handleSpacesChange}/>
+          <Toggler text="Uppercase" onChange={this.handleCaseChange}/>
+        </div>
       </div>
     );
   }
