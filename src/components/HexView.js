@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ChunkedDataView from './ChunkedDataView';
 import EncodingPicker from './EncodingPicker';
 import Toggler from './Toggler';

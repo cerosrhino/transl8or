@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import DataView from './DataView';
 import EncodingPicker from './EncodingPicker';
-import Toggler from './Toggler';
 
 class Base64View extends DataView {
   format(input) {
