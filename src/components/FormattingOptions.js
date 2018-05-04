@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Toggler from './Toggler';
+import './FormattingOptions.css';
 
 class FormattingOptions extends Component {
   render() {
