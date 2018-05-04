@@ -4,11 +4,6 @@ import EncodingPicker from './EncodingPicker';
 import Toggler from './Toggler';
 
 class HexView extends ChunkedDataView {
-  constructor(props) {
-    super(props);
-    this.chunkLength = 2;
-  }
-
   format(input) {
     let output = this.codec
       .encode(input)

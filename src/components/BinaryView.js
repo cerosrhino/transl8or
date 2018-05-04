@@ -4,11 +4,6 @@ import EncodingPicker from './EncodingPicker';
 import Toggler from './Toggler';
 
 class BinaryView extends ChunkedDataView {
-  constructor(props) {
-    super(props);
-    this.chunkLength = 8;
-  }
-
   format(input) {
     return this.codec
       .encode(input)

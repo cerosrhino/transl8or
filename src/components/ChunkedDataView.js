@@ -5,7 +5,6 @@ class ChunkedDataView extends DataView {
     super(props);
 
     this.separator = '';
-    this.chunkLength = 0;
   }
 
   handleSpacesChange = (checked) => {
