@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Toggler.css';
 
 class Toggler extends Component {
   constructor() {
@@ -19,7 +20,7 @@ class Toggler extends Component {
 
   render() {
     return (
-      <label>
+      <label className="toggler">
         <input
           type="checkbox"
           checked={this.state.checked}

@@ -1,26 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Maven+Pro:500');
-
-* {
-  margin: 0;
-  padding: 0;
-  font-family: 'Maven Pro', 'Trebuchet MS', 'Helvetica', sans-serif;
-  font-size: 16px;
-  color: #000;
-}
-
-body {
-  background-color: #ddf;
-}
-
 #app {
   display: flex;
-  flex-direction: column;
-  align-content: center;
-  justify-content: center;
   min-height: 100vh;
 }
 
-#grid {
+#app__grid {
   margin: auto;
   width: 100%;
   max-width: 820px;
@@ -29,41 +12,4 @@ body {
   grid-gap: 20px;
   text-align: center;
   justify-content: center;
-}
-
-#grid > div {
-  height: 220px;
-  display: grid;
-  grid-template-rows: 26px auto 26px;
-}
-
-label {
-  display: inline-block;
-  margin: auto 5px;
-}
-
-p, label {
-  line-height: 26px;
-  height: 26px;
-}
-
-select {
-  height: 26px;
-}
-
-textarea {
-  box-sizing: border-box;
-  width: 100%;
-  padding: 4px;
-  border: 2px solid #05c;
-  border-radius: 5px;
-  background: #fff;
-  box-shadow: 0 0 2px #000 inset;
-  resize: none;
-  font-family: monospace;
-}
-
-select {
-  width: 100px;
-  text-align: center;
 }

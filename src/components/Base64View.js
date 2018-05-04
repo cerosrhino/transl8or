@@ -1,6 +1,6 @@
 import React from 'react';
 import DataView from './DataView';
-import EncodingPicker from './EncodingPicker';
+import Title from './Title';
 
 class Base64View extends DataView {
   format(input) {
@@ -27,11 +27,11 @@ class Base64View extends DataView {
   
   render() {
     return (
-      <div>
-        <p>
-          Base64 <EncodingPicker onChange={this.handleEncodingChange}/>
-        </p>
+      <div className="data-view">
+        <Title text="Base64"
+          onEncodingChange={this.handleEncodingChange}/>
         <textarea
+          className="data-view__textarea"
           spellCheck="false"
           onChange={this.handleChange}
           value={this.state.value}/>

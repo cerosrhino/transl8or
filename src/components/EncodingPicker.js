@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Codec from '../Codec';
+import './EncodingPicker.css';
 
 class EncodingPicker extends Component {
   handleChange = (event) => {
@@ -12,7 +13,9 @@ class EncodingPicker extends Component {
 
   render() {
     return (
-      <select onChange={this.handleChange}>
+      <select
+        className="encoding-picker"
+        onChange={this.handleChange}>
         {
           Codec.encodings().map(
             (el, index) => <option key={index}>{el}</option>

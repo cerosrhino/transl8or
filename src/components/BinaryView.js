@@ -1,7 +1,7 @@
 import React from 'react';
 import ChunkedDataView from './ChunkedDataView';
-import EncodingPicker from './EncodingPicker';
-import Toggler from './Toggler';
+import Title from './Title';
+import FormattingOptions from './FormattingOptions';
 
 class BinaryView extends ChunkedDataView {
   format(input) {
@@ -35,15 +35,15 @@ class BinaryView extends ChunkedDataView {
 
   render() {
     return (
-      <div>
-        <p>
-          Binary <EncodingPicker onChange={this.handleEncodingChange}/>
-        </p>
+      <div className="data-view">
+        <Title text="Binary"
+          onEncodingChange={this.handleEncodingChange}/>
         <textarea
+          className="data-view__textarea"
           spellCheck="false"
           onChange={this.handleChange}
           value={this.state.value}/>
-        <Toggler text="With spaces" onChange={this.handleSpacesChange}/>
+        <FormattingOptions onSpacesChange={this.handleSpacesChange}/>
       </div>
     );
   }

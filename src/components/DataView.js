@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Codec from '../Codec';
+import './DataView.css';
 
 class DataView extends Component {
   constructor(props) {
@@ -50,10 +51,13 @@ class DataView extends Component {
 
   render() {
     return (
-      <textarea
-        spellCheck="false"
-        onChange={this.handleChange}
-        value={this.state.value}/>
+      <div class="data-view">
+        <textarea
+          className="data-view__textarea"
+          spellCheck="false"
+          onChange={this.handleChange}
+          value={this.state.value}/>
+      </div>
     );
   }
 }

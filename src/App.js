@@ -8,6 +8,7 @@ import './App.css';
 class App extends Component {
   constructor() {
     super();
+
     this.state = {
       text: ''
     };
@@ -22,7 +23,7 @@ class App extends Component {
   render() {
     return (
       <div id="app">
-        <div id="grid">
+        <div id="app__grid">
           <UnicodeView text={this.state.text} onChange={this.handleChange}/>
           <BinaryView text={this.state.text} onChange={this.handleChange}/>
           <HexView text={this.state.text} onChange={this.handleChange}/>
