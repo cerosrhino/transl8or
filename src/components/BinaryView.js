@@ -36,7 +36,8 @@ class BinaryView extends ChunkedDataView {
   render() {
     return (
       <div className="data-view">
-        <Title text="Binary"
+        <Title
+          text="Binary"
           onEncodingChange={this.handleEncodingChange}/>
         <textarea
           className="data-view__textarea"

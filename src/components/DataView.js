@@ -51,7 +51,7 @@ class DataView extends Component {
 
   render() {
     return (
-      <div class="data-view">
+      <div className="data-view">
         <textarea
           className="data-view__textarea"
           spellCheck="false"

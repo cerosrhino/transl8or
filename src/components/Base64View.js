@@ -28,7 +28,8 @@ class Base64View extends DataView {
   render() {
     return (
       <div className="data-view">
-        <Title text="Base64"
+        <Title
+          text="Base64"
           onEncodingChange={this.handleEncodingChange}/>
         <textarea
           className="data-view__textarea"

@@ -49,7 +49,8 @@ class HexView extends ChunkedDataView {
   render() {
     return (
       <div className="data-view">
-        <Title text="Hexadecimal"
+        <Title
+          text="Hexadecimal"
           onEncodingChange={this.handleEncodingChange}/>
         <textarea
           className="data-view__textarea"
