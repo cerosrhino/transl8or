@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Codec from '../Codec';
 import './DataView.css';
 
@@ -60,18 +60,6 @@ class DataView extends Component {
     }
 
     return className;
-  }
-
-  render() {
-    return (
-      <div className="data-view">
-        <textarea
-          className="data-view__textarea"
-          spellCheck="false"
-          onChange={this.handleChange}
-          value={this.state.value}/>
-      </div>
-    );
   }
 }
 
