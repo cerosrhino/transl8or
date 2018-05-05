@@ -41,7 +41,7 @@ class Codec {
   decode(data) {
     switch (this.encoding) {
       case 'UTF-8':
-        return decodeURIComponent(
+        return (data.length === 0) ? '' : decodeURIComponent(
           '%' + data.map(
             el => el.charCodeAt(0).toString(16).padStart(2, '0')
           ).join('%')

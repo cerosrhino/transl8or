@@ -12,6 +12,7 @@ class Title extends Component {
           this.props.onEncodingChange &&
           <EncodingPicker onChange={this.props.onEncodingChange}/>
         }
+        <span className="title__counter">{this.props.length}</span>
       </div>
     );
   }

@@ -1,4 +1,10 @@
 .title {
+    position: relative;
     line-height: 26px;
     text-align: center;
+}
+
+.title__counter {
+    position: absolute;
+    right: 10px;
 }

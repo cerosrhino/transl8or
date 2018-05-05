@@ -6,7 +6,9 @@ class UnicodeView extends DataView {
   render() {
     return (
       <div className="data-view">
-        <Title text="Text (Unicode)"/>
+        <Title
+          text="Text (Unicode)"
+          length={this.state.value.length}/>
         <textarea
           className="data-view__textarea"
           spellCheck="false"
