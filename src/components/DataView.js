@@ -53,13 +53,13 @@ class DataView extends Component {
     });
   }
 
-  textareaClass = () => {
-    let textareaClass = 'data-view__textarea';
+  textareaClassName() {
+    let className = 'data-view__textarea';
     if (this.state.error) {
-      textareaClass += ' data-view__textarea--error';
+      className += ' data-view__textarea--error';
     }
 
-    return textareaClass;
+    return className;
   }
 
   render() {

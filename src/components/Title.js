@@ -4,9 +4,9 @@ import './Title.css';
 
 class Title extends Component {
   render() {
-    let counterClass = 'title__counter';
+    let counterClassName = 'title__counter';
     if (this.props.error) {
-      counterClass += ' title__counter--error';
+      counterClassName += ' title__counter--error';
     }
 
     return (
@@ -17,7 +17,7 @@ class Title extends Component {
           this.props.onEncodingChange &&
           <EncodingPicker onChange={this.props.onEncodingChange}/>
         }
-        <span className={counterClass}>{this.props.length}</span>
+        <span className={counterClassName}>{this.props.length}</span>
       </div>
     );
   }

@@ -42,7 +42,7 @@ class BinaryView extends ChunkedDataView {
           length={this.state.value.length}
           error={this.state.error}/>
         <textarea
-          className={this.textareaClass()}
+          className={this.textareaClassName()}
           spellCheck="false"
           onChange={this.handleChange}
           value={this.state.value}/>
