@@ -8,3 +8,7 @@
     position: absolute;
     right: 10px;
 }
+
+.title__counter--error {
+    color: #c00;
+}

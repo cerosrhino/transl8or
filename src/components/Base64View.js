@@ -31,9 +31,10 @@ class Base64View extends DataView {
         <Title
           text="Base64"
           onEncodingChange={this.handleEncodingChange}
-          length={this.state.value.length}/>
+          length={this.state.value.length}
+          error={this.state.error}/>
         <textarea
-          className="data-view__textarea"
+          className={this.textareaClass()}
           spellCheck="false"
           onChange={this.handleChange}
           value={this.state.value}/>

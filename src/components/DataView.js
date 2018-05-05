@@ -9,7 +9,8 @@ class DataView extends Component {
     this.codec = new Codec();
 
     this.state = {
-      value: ''
+      value: '',
+      error: false
     };
   }
 
@@ -34,11 +35,14 @@ class DataView extends Component {
   handleChange = (event) => {
     try {
       this.setState({
-        value: this.filter(event.target.value)
+        value: this.filter(event.target.value),
+        error: false
       });
       this.props.onChange(this.parse(event.target.value));
     } catch (e) {
-      console.log(e);
+      this.setState({
+        error: true
+      });
     }
   }
   
@@ -47,6 +51,15 @@ class DataView extends Component {
     this.setState({
       value: this.format(this.props.text)
     });
+  }
+
+  textareaClass = () => {
+    let textareaClass = 'data-view__textarea';
+    if (this.state.error) {
+      textareaClass += ' data-view__textarea--error';
+    }
+
+    return textareaClass;
   }
 
   render() {

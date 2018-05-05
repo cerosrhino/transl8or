@@ -16,3 +16,7 @@
   resize: none;
   font-family: monospace;
 }
+
+.data-view__textarea--error {
+  border-color: #c00;
+}
