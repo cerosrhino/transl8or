@@ -19,10 +19,8 @@ class HexView extends ChunkedDataView {
 
   parse(input) {
     input = input.replace(/\s/g, '');
-    if (input.length % 2 !== 0 || /[^0-9a-f]/i.test(input)) {
-      throw new Error(
-        'Incorrect number of characters or illegal character(s) in input'
-      );
+    if (input.length % 2 !== 0) {
+      throw new Error('Incorrect number of characters');
     }
 
     return this.codec.decode(input.replace(
@@ -32,11 +30,7 @@ class HexView extends ChunkedDataView {
   }
 
   filter(input) {
-    if (/[^0-9a-f\s]/gi.test(input)) {
-      throw new Error('Illegal character(s) in input');
-    }
-
-    return input;
+    return input.replace(/[^0-9a-f\s]/gi, '');
   }
 
   handleCaseChange = (checked) => {

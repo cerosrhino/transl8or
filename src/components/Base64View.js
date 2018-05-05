@@ -8,21 +8,15 @@ class Base64View extends DataView {
   }
 
   parse(input) {
-    if (input.length % 4 !== 0 || /[^a-z0-9+=]/gi.test(input)) {
-      throw new Error(
-        'Incorrect number of characters or illegal character(s) in input'
-      );
+    if (input.length % 4 !== 0) {
+      throw new Error('Incorrect number of characters');
     }
 
     return this.codec.decode(atob(input).split(''));
   }
 
   filter(input) {
-    if (/[^a-z0-9+/=]/gi.test(input)) {
-      throw new Error('Illegal character(s) in input');
-    }
-    
-    return input;
+    return input.replace(/[^a-z0-9+/=]/gi, '');
   }
   
   render() {

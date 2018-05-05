@@ -13,10 +13,8 @@ class BinaryView extends ChunkedDataView {
 
   parse(input) {
     input = input.replace(/\s/g, '');
-    if (input.length % 8 !== 0 || /[^01]/i.test(input)) {
-      throw new Error(
-        'Incorrect number of characters or illegal characters(s) in input'
-      );
+    if (input.length % 8 !== 0) {
+      throw new Error('Incorrect number of characters');
     }
 
     return this.codec.decode(input.replace(
@@ -26,11 +24,7 @@ class BinaryView extends ChunkedDataView {
   }
 
   filter(input) {
-    if (/[^01\s]/g.test(input)) {
-      throw new Error('Illegal character(s) in input');
-    }
-    
-    return input;
+    return input.replace(/[^01\s]/g, '');
   }
 
   render() {

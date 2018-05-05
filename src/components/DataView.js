@@ -33,17 +33,18 @@ class DataView extends Component {
   }
 
   handleChange = (event) => {
-    try {
-      this.setState({
-        value: this.filter(event.target.value),
-        error: false
-      });
-      this.props.onChange(this.parse(event.target.value));
-    } catch (e) {
-      this.setState({
-        error: true
-      });
-    }
+    this.setState({
+      value: this.filter(event.target.value),
+      error: false
+    }, () => {
+      try {
+        this.props.onChange(this.parse(this.state.value));
+      } catch (e) {
+        this.setState({
+          error: true
+        });
+      }
+    });
   }
   
   handleEncodingChange = (encoding) => {
