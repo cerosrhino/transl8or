@@ -1,6 +1,7 @@
 import React from 'react';
 import DataView from './DataView';
 import Title from './Title';
+import Codec from '../Codec';
 
 class UnicodeView extends DataView {
   render() {
@@ -8,7 +9,7 @@ class UnicodeView extends DataView {
       <div className="data-view">
         <Title
           text="Text (Unicode)"
-          length={this.state.value.length}/>
+          length={Codec.splitByCodePoints(this.state.value).length}/>
         <textarea
           className="data-view__textarea"
           spellCheck="false"

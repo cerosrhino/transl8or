@@ -75,7 +75,7 @@ class Codec {
     return Array.prototype.concat.apply([], characters);
   }
 
-  splitByCodePoints(text) {
+  static splitByCodePoints(text) {
     return [...text];
   }
 
