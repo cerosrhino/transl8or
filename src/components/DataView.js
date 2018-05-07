@@ -1,45 +1,60 @@
-import { Component } from 'react';
-import Codec from '../Codec';
+import React, { Component } from 'react';
+import Title from './Title';
+import FormattingOptions from './FormattingOptions';
+import codec from '../Codec';
 import './DataView.css';
 
 class DataView extends Component {
   constructor(props) {
     super(props);
 
-    this.codec = new Codec();
-
     this.state = {
       value: '',
+      encoding: codec.findEncoding('UTF-8'),
+      separator: '',
+      useUppercase: false,
       error: false
     };
   }
 
-  filter(input) {
-    return input;
+  // componentWillReceiveProps(nextProps) {
+  //   console.log(nextProps);
+  //   // this.setState({
+  //   //   value: nextProps.format(nextProps.text || '')
+  //   // });
+  // }
+
+  // componentDidUpdate(prevProps, prevState, snapshot) {
+  //   console.log('update');
+  // }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return (nextProps.format && typeof nextProps.text !== 'undefined') ?
+             DataView.updateValue(nextProps, prevState) :
+             null;
   }
 
-  format(input) {
-    return input;
-  }
-
-  parse(input) {
-    return input;
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      value: this.format(nextProps.text)
-    });
+  static updateValue = (props, state) => {
+    let value = props.format(props.text, state.encoding).join(state.separator);
+    if (state.useUppercase) {
+      value = value.toUpperCase();
+    }
+    return { value };
   }
 
   handleChange = (event) => {
+    // console.log(this.props);
     this.setState({
-      value: this.filter(event.target.value),
+      value: this.props.filter(event.target.value),
       error: false
     }, () => {
       try {
-        this.props.onChange(this.parse(this.state.value));
+        // console.log('f', this.props.parse(this.state.value));
+        this.props.onChange(
+          this.props.parse(this.state.value, this.state.encoding)
+        );
       } catch (e) {
+        // console.log(e);
         this.setState({
           error: true
         });
@@ -48,19 +63,48 @@ class DataView extends Component {
   }
   
   handleEncodingChange = (encoding) => {
-    this.codec.setEncoding(encoding);
+    console.log(encoding);
+    // this.setState(DataView.updateValue(this.props, this.state));
     this.setState({
-      value: this.format(this.props.text)
+      encoding,
+      value: this.props.format(this.state.value, 2)
     });
   }
+  
+  handleSpacesChange = (checked) => {
+    // this.state.separator = checked ? ' ' : '';
+    this.setState(DataView.updateValue(this.props, this.state));
+  }
 
-  textareaClassName() {
-    let className = 'data-view__textarea';
+  handleCaseChange = (checked) => {
+    this.state.useUppercase = checked;
+    // this.setState({
+    //   value: this.props.format(this.props.text, this.state.codec)
+    // });
+    this.setState(DataView.updateValue(this.props, this.state));
+  }
+
+  render() {
+    let textareaClassName = 'data-view__textarea';
     if (this.state.error) {
-      className += ' data-view__textarea--error';
+      textareaClassName += ' data-view__textarea--error';
     }
 
-    return className;
+    return (
+      <div className="data-view">
+        <Title
+          text={this.props.title}
+          onEncodingChange={this.handleEncodingChange}
+          length={codec.splitByCodePoints(this.state.value).length}
+          error={this.state.error}/>
+        <textarea
+          className={textareaClassName}
+          spellCheck="false"
+          onChange={this.handleChange}
+          value={this.state.value}/>
+        {this.props.children}
+      </div>
+    )
   }
 }
 

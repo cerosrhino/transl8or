@@ -6,9 +6,9 @@ class EncodingPicker extends Component {
   handleChange = (event) => {
     this.setState({
       value: event.target.value
+    }, () => {
+      this.props.onChange(this.state.value);
     });
-
-    this.props.onChange(event.target.value);
   }
 
   render() {
@@ -18,7 +18,7 @@ class EncodingPicker extends Component {
         onChange={this.handleChange}>
         {
           Codec.encodings().map(
-            (el, index) => <option key={index}>{el}</option>
+            (el, index) => <option key={index} value={index}>{el}</option>
           )
         }
       </select>

@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { Component } from 'react';
 import DataView from './DataView';
-import Title from './Title';
+import codec from '../Codec';
 
-class Base64View extends DataView {
-  format(input) {
-    return btoa(this.codec.encode(input).join(''));
+class Base64View extends Component {
+  format = (input, encoding) => {
+    return btoa(codec.encode(input, encoding).join('')).split('');
   }
 
-  parse(input) {
+  parse = (input, encoding) => {
     if (input.length % 4 !== 0) {
       throw new Error('Incorrect number of characters');
     }
 
-    return this.codec.decode(atob(input).split(''));
+    return codec.decode(atob(input).split(''), encoding);
   }
 
   filter(input) {
@@ -21,18 +21,13 @@ class Base64View extends DataView {
   
   render() {
     return (
-      <div className="data-view">
-        <Title
-          text="Base64"
-          onEncodingChange={this.handleEncodingChange}
-          length={this.state.value.length}
-          error={this.state.error}/>
-        <textarea
-          className={this.textareaClassName()}
-          spellCheck="false"
-          onChange={this.handleChange}
-          value={this.state.value}/>
-      </div>
+      <DataView
+        title="Base64"
+        filter={this.filter}
+        format={this.format}
+        parse={this.parse}
+        text={this.props.text}
+        onChange={this.props.onChange}/>
     );
   }
 }

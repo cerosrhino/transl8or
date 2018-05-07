@@ -1,26 +1,25 @@
-import React from 'react';
-import ChunkedDataView from './ChunkedDataView';
-import Title from './Title';
-import FormattingOptions from './FormattingOptions';
+import React, { Component } from 'react';
+import DataView from './DataView';
+import codec from '../Codec';
 
-class BinaryView extends ChunkedDataView {
-  format(input) {
-    return this.codec
-      .encode(input)
-      .map(el => el.charCodeAt(0).toString(2).padStart(8, '0'))
-      .join(this.separator);
+class BinaryView extends Component {
+  format = (input, encoding) => {
+    return codec
+      .encode(input, encoding)
+      .map(el => el.charCodeAt(0).toString(2).padStart(8, '0'));
+      // .join(this.separator);
   }
 
-  parse(input) {
+  parse = (input, encoding) => {
     input = input.replace(/\s/g, '');
     if (input.length % 8 !== 0) {
       throw new Error('Incorrect number of characters');
     }
 
-    return this.codec.decode(input.replace(
+    return codec.decode(input.replace(
       /(.{8})/g,
       (_, match) => String.fromCharCode(parseInt(match, 2))
-    ).split(''));
+    ).split(''), encoding);
   }
 
   filter(input) {
@@ -29,19 +28,14 @@ class BinaryView extends ChunkedDataView {
 
   render() {
     return (
-      <div className="data-view">
-        <Title
-          text="Binary"
-          onEncodingChange={this.handleEncodingChange}
-          length={this.state.value.length}
-          error={this.state.error}/>
-        <textarea
-          className={this.textareaClassName()}
-          spellCheck="false"
-          onChange={this.handleChange}
-          value={this.state.value}/>
-        <FormattingOptions onSpacesChange={this.handleSpacesChange}/>
-      </div>
+      <DataView
+        title="Binary"
+        filter={this.filter}
+        format={this.format}
+        parse={this.parse}
+        text={this.props.text}
+        onChange={this.props.onChange}
+        onSpacesChange={this.handleSpacesChange}/>
     );
   }
 }
