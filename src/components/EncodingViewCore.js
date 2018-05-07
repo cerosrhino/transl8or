@@ -11,34 +11,30 @@ class EncodingViewCore extends Component {
     this.state = {
       value: '',
       serializedOptions: 0,
-      encoding: codec.findEncoding('UTF-8'),
-      useSpaces: false,
-      useUppercase: false,
       error: false
     };
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const serializedOptions = nextProps.serializedOptions;
-    const encoding = ((serializedOptions >> 5) & 0b111);
-    const useSpaces = !!((serializedOptions >> 4) & 1);
-    const useUppercase = !!((serializedOptions >> 3) & 1);
-
+  static deserialize(serializedOptions) {
     return {
-      serializedOptions: nextProps.serializedOptions,
-      encoding,
-      useSpaces,
-      useUppercase,
-      value: EncodingViewCore.updateValue(
-        nextProps,
-        encoding,
-        useSpaces,
-        useUppercase
-      )
+      encoding: ((serializedOptions >> 5) & 0b111),
+      useSpaces: !!((serializedOptions >> 4) & 1),
+      useUppercase: !!((serializedOptions >> 3) & 1)
     };
   }
 
-  static updateValue = (props, encoding, useSpaces, useUppercase) => {
+  static getDerivedStateFromProps = (nextProps, prevState) => {
+    return {
+      serializedOptions: nextProps.serializedOptions,
+      value: EncodingViewCore.updateValue(nextProps)
+    };
+  }
+
+  static updateValue = (props) => {
+    const { encoding, useSpaces, useUppercase } = EncodingViewCore.deserialize(
+      props.serializedOptions
+    );
+
     let value = props.format(props.text, encoding).join(useSpaces ? ' ' : '');
     if (useUppercase) {
       value = value.toUpperCase();
@@ -48,14 +44,16 @@ class EncodingViewCore extends Component {
   }
 
   handleChange = (event) => {
+    const { encoding } = EncodingViewCore.deserialize(
+      this.props.serializedOptions
+    );
+
     this.setState({
       value: this.props.filter(event.target.value),
       error: false
     }, () => {
       try {
-        this.props.onChange(
-          this.props.parse(this.state.value, this.state.encoding)
-        );
+        this.props.onChange(this.props.parse(this.state.value, encoding));
       } catch (e) {
         this.setState({
           error: true
@@ -71,13 +69,7 @@ class EncodingViewCore extends Component {
 
     this.setState({
       serializedOptions,
-      encoding,
-      value: EncodingViewCore.updateValue(
-        this.props,
-        encoding,
-        this.state.useSpaces,
-        this.state.useUppercase
-      )
+      value: EncodingViewCore.updateValue(this.props)
     });
   }
   
@@ -88,13 +80,7 @@ class EncodingViewCore extends Component {
 
     this.setState({
       serializedOptions,
-      useSpaces,
-      value: EncodingViewCore.updateValue(
-        this.props,
-        this.state.encoding,
-        useSpaces,
-        this.state.useUppercase
-      )
+      value: EncodingViewCore.updateValue(this.props)
     });
   }
 
@@ -105,17 +91,15 @@ class EncodingViewCore extends Component {
 
     this.setState({
       serializedOptions,
-      useUppercase,
-      value: EncodingViewCore.updateValue(
-        this.props,
-        this.state.encoding,
-        this.state.useSpaces,
-        useUppercase
-      )
+      value: EncodingViewCore.updateValue(this.props)
     });
   }
 
   render() {
+    const { encoding, useSpaces, useUppercase } = EncodingViewCore.deserialize(
+      this.props.serializedOptions
+    );
+
     let textareaClassName = 'data-view__textarea';
     if (this.state.error) {
       textareaClassName += ' data-view__textarea--error';
@@ -125,7 +109,7 @@ class EncodingViewCore extends Component {
       <div className="data-view">
         <Title
           text={this.props.title}
-          encoding={this.state.encoding}
+          encoding={encoding}
           onEncodingChange={
             this.props.showEncoding && this.handleEncodingChange
           }
@@ -137,9 +121,9 @@ class EncodingViewCore extends Component {
           onChange={this.handleChange}
           value={this.state.value}/>
         <FormattingOptions
-          spacesChecked={this.state.useSpaces}
+          spacesChecked={useSpaces}
           onSpacesChange={this.props.showSpaces && this.handleSpacesChange}
-          uppercaseChecked={this.state.useUppercase}
+          uppercaseChecked={useUppercase}
           onCaseChange={this.props.showUppercase && this.handleCaseChange}/>
       </div>
     )
