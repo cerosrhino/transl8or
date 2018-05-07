@@ -34,8 +34,9 @@ class HexView extends Component {
         parse={this.parse}
         text={this.props.text}
         onChange={this.props.onChange}
-        spaces={true}
-        uppercase={true}/>
+        showEncoding={true}
+        showSpaces={true}
+        showUppercase={true}/>
     );
   }
 }

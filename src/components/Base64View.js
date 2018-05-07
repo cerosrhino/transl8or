@@ -27,7 +27,8 @@ class Base64View extends Component {
         format={this.format}
         parse={this.parse}
         text={this.props.text}
-        onChange={this.props.onChange}/>
+        onChange={this.props.onChange}
+        showEncoding={true}/>
     );
   }
 }

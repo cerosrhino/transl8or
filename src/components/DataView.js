@@ -100,7 +100,9 @@ class DataView extends Component {
       <div className="data-view">
         <Title
           text={this.props.title}
-          onEncodingChange={this.handleEncodingChange}
+          onEncodingChange={
+            this.props.showEncoding && this.handleEncodingChange
+          }
           length={codec.splitByCodePoints(this.state.value).length}
           error={this.state.error}/>
         <textarea
@@ -109,8 +111,8 @@ class DataView extends Component {
           onChange={this.handleChange}
           value={this.state.value}/>
         <FormattingOptions
-          onSpacesChange={this.props.spaces && this.handleSpacesChange}
-          onCaseChange={this.props.uppercase && this.handleCaseChange}/>
+          onSpacesChange={this.props.showSpaces && this.handleSpacesChange}
+          onCaseChange={this.props.showUppercase && this.handleCaseChange}/>
       </div>
     )
   }
