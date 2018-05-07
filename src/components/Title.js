@@ -15,7 +15,9 @@ class Title extends Component {
         {' '}
         {
           this.props.onEncodingChange &&
-          <EncodingPicker onChange={this.props.onEncodingChange}/>
+          <EncodingPicker
+            encoding={this.props.encoding}
+            onChange={this.props.onEncodingChange}/>
         }
         <span className={counterClassName}>{this.props.length}</span>
       </div>

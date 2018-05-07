@@ -10,29 +10,40 @@ class EncodingViewCore extends Component {
 
     this.state = {
       value: '',
+      serializedOptions: 0,
       encoding: codec.findEncoding('UTF-8'),
-      separator: '',
+      useSpaces: false,
       useUppercase: false,
       error: false
     };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    return (nextProps.format && typeof nextProps.text !== 'undefined') ? {
+    const serializedOptions = nextProps.serializedOptions;
+    const encoding = ((serializedOptions >> 5) & 0b111);
+    const useSpaces = !!((serializedOptions >> 4) & 1);
+    const useUppercase = !!((serializedOptions >> 3) & 1);
+
+    return {
+      serializedOptions: nextProps.serializedOptions,
+      encoding,
+      useSpaces,
+      useUppercase,
       value: EncodingViewCore.updateValue(
         nextProps,
-        prevState.encoding,
-        prevState.separator,
-        prevState.useUppercase
+        encoding,
+        useSpaces,
+        useUppercase
       )
-    } : null;
+    };
   }
 
-  static updateValue = (props, encoding, separator, useUppercase) => {
-    let value = props.format(props.text, encoding).join(separator);
+  static updateValue = (props, encoding, useSpaces, useUppercase) => {
+    let value = props.format(props.text, encoding).join(useSpaces ? ' ' : '');
     if (useUppercase) {
       value = value.toUpperCase();
     }
+    
     return value;
   }
 
@@ -54,37 +65,51 @@ class EncodingViewCore extends Component {
   }
   
   handleEncodingChange = (encoding) => {
+    let serializedOptions = this.state.serializedOptions & 0b00011111;
+    serializedOptions |= (encoding << 5);
+    this.props.onSerialize(serializedOptions);
+
     this.setState({
+      serializedOptions,
       encoding,
       value: EncodingViewCore.updateValue(
         this.props,
         encoding,
-        this.state.separator,
+        this.state.useSpaces,
         this.state.useUppercase
       )
     });
   }
   
-  handleSpacesChange = (checked) => {
-    const separator = checked ? ' ' : '';
+  handleSpacesChange = (useSpaces) => {
+    let serializedOptions = this.state.serializedOptions & 0b11101111;
+    serializedOptions |= (useSpaces << 4);
+    this.props.onSerialize(serializedOptions);
+
     this.setState({
-      separator,
+      serializedOptions,
+      useSpaces,
       value: EncodingViewCore.updateValue(
         this.props,
         this.state.encoding,
-        separator,
+        useSpaces,
         this.state.useUppercase
       )
     });
   }
 
   handleCaseChange = (useUppercase) => {
+    let serializedOptions = this.state.serializedOptions & 0b11110111;
+    serializedOptions |= (useUppercase << 3);
+    this.props.onSerialize(serializedOptions);
+
     this.setState({
+      serializedOptions,
       useUppercase,
       value: EncodingViewCore.updateValue(
         this.props,
         this.state.encoding,
-        this.state.separator,
+        this.state.useSpaces,
         useUppercase
       )
     });
@@ -100,6 +125,7 @@ class EncodingViewCore extends Component {
       <div className="data-view">
         <Title
           text={this.props.title}
+          encoding={this.state.encoding}
           onEncodingChange={
             this.props.showEncoding && this.handleEncodingChange
           }
@@ -111,7 +137,9 @@ class EncodingViewCore extends Component {
           onChange={this.handleChange}
           value={this.state.value}/>
         <FormattingOptions
+          spacesChecked={this.state.useSpaces}
           onSpacesChange={this.props.showSpaces && this.handleSpacesChange}
+          uppercaseChecked={this.state.useUppercase}
           onCaseChange={this.props.showUppercase && this.handleCaseChange}/>
       </div>
     )

@@ -28,6 +28,8 @@ class Base64View extends Component {
         parse={this.parse}
         text={this.props.text}
         onChange={this.props.onChange}
+        serializedOptions={this.props.serializedOptions}
+        onSerialize={this.props.onSerialize}
         showEncoding={true}/>
     );
   }
