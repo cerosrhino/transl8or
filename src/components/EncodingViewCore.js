@@ -18,14 +18,14 @@ class EncodingViewCore extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    return (nextProps.format && typeof nextProps.text !== 'undefined') ? {
+    return {
       value: EncodingViewCore.updateValue(
         nextProps,
         prevState.encoding,
         prevState.separator,
         prevState.useUppercase
       )
-    } : null;
+    };
   }
 
   static updateValue = (props, encoding, separator, useUppercase) => {
