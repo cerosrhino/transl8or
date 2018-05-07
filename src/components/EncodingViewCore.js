@@ -24,7 +24,6 @@ class EncodingViewCore extends Component {
 
   static getDerivedStateFromProps = (nextProps, prevState) => {
     return {
-      serializedOptions: nextProps.serializedOptions,
       value: EncodingViewCore.updateValue(nextProps)
     };
   }
@@ -67,7 +66,6 @@ class EncodingViewCore extends Component {
     this.props.onSerialize(serializedOptions);
 
     this.setState({
-      serializedOptions,
       value: EncodingViewCore.updateValue(this.props)
     });
   }
@@ -78,7 +76,6 @@ class EncodingViewCore extends Component {
     this.props.onSerialize(serializedOptions);
 
     this.setState({
-      serializedOptions,
       value: EncodingViewCore.updateValue(this.props)
     });
   }
@@ -89,7 +86,6 @@ class EncodingViewCore extends Component {
     this.props.onSerialize(serializedOptions);
 
     this.setState({
-      serializedOptions,
       value: EncodingViewCore.updateValue(this.props)
     });
   }
