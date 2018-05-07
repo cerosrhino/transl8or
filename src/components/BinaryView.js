@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DataView from './DataView';
+import EncodingViewCore from './EncodingViewCore';
 import codec from '../Codec';
 
 class BinaryView extends Component {
@@ -27,7 +27,7 @@ class BinaryView extends Component {
 
   render() {
     return (
-      <DataView
+      <EncodingViewCore
         title="Binary"
         filter={this.filter}
         format={this.format}

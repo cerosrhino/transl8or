@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Title from './Title';
 import FormattingOptions from './FormattingOptions';
 import codec from '../Codec';
-import './DataView.css';
+import './EncodingViewCore.css';
 
-class DataView extends Component {
+class EncodingViewCore extends Component {
   constructor(props) {
     super(props);
 
@@ -19,7 +19,7 @@ class DataView extends Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     return (nextProps.format && typeof nextProps.text !== 'undefined') ? {
-      value: DataView.updateValue(
+      value: EncodingViewCore.updateValue(
         nextProps,
         prevState.encoding,
         prevState.separator,
@@ -56,7 +56,7 @@ class DataView extends Component {
   handleEncodingChange = (encoding) => {
     this.setState({
       encoding,
-      value: DataView.updateValue(
+      value: EncodingViewCore.updateValue(
         this.props,
         encoding,
         this.state.separator,
@@ -69,7 +69,7 @@ class DataView extends Component {
     const separator = checked ? ' ' : '';
     this.setState({
       separator,
-      value: DataView.updateValue(
+      value: EncodingViewCore.updateValue(
         this.props,
         this.state.encoding,
         separator,
@@ -81,7 +81,7 @@ class DataView extends Component {
   handleCaseChange = (useUppercase) => {
     this.setState({
       useUppercase,
-      value: DataView.updateValue(
+      value: EncodingViewCore.updateValue(
         this.props,
         this.state.encoding,
         this.state.separator,
@@ -118,4 +118,4 @@ class DataView extends Component {
   }
 }
 
-export default DataView;
+export default EncodingViewCore;

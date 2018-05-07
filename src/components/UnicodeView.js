@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DataView from './DataView';
+import EncodingViewCore from './EncodingViewCore';
 
 class UnicodeView extends Component {
   filter = (input) => {
@@ -16,7 +16,7 @@ class UnicodeView extends Component {
 
   render() {
     return (
-      <DataView
+      <EncodingViewCore
         title="Text (Unicode)"
         filter={this.filter}
         format={this.format}

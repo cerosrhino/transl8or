@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DataView from './DataView';
+import EncodingViewCore from './EncodingViewCore';
 import codec from '../Codec';
 
 class Base64View extends Component {
@@ -21,7 +21,7 @@ class Base64View extends Component {
 
   render() {
     return (
-      <DataView
+      <EncodingViewCore
         title="Base64"
         filter={this.filter}
         format={this.format}
