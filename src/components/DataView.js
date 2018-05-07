@@ -17,44 +17,35 @@ class DataView extends Component {
     };
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   console.log(nextProps);
-  //   // this.setState({
-  //   //   value: nextProps.format(nextProps.text || '')
-  //   // });
-  // }
-
-  // componentDidUpdate(prevProps, prevState, snapshot) {
-  //   console.log('update');
-  // }
-
   static getDerivedStateFromProps(nextProps, prevState) {
-    return (nextProps.format && typeof nextProps.text !== 'undefined') ?
-             DataView.updateValue(nextProps, prevState) :
-             null;
+    return (nextProps.format && typeof nextProps.text !== 'undefined') ? {
+      value: DataView.updateValue(
+        nextProps,
+        prevState.encoding,
+        prevState.separator,
+        prevState.useUppercase
+      )
+    } : null;
   }
 
-  static updateValue = (props, state) => {
-    let value = props.format(props.text, state.encoding).join(state.separator);
-    if (state.useUppercase) {
+  static updateValue = (props, encoding, separator, useUppercase) => {
+    let value = props.format(props.text, encoding).join(separator);
+    if (useUppercase) {
       value = value.toUpperCase();
     }
-    return { value };
+    return value;
   }
 
   handleChange = (event) => {
-    // console.log(this.props);
     this.setState({
       value: this.props.filter(event.target.value),
       error: false
     }, () => {
       try {
-        // console.log('f', this.props.parse(this.state.value));
         this.props.onChange(
           this.props.parse(this.state.value, this.state.encoding)
         );
       } catch (e) {
-        // console.log(e);
         this.setState({
           error: true
         });
@@ -63,25 +54,40 @@ class DataView extends Component {
   }
   
   handleEncodingChange = (encoding) => {
-    console.log(encoding);
-    // this.setState(DataView.updateValue(this.props, this.state));
     this.setState({
       encoding,
-      value: this.props.format(this.state.value, 2)
+      value: DataView.updateValue(
+        this.props,
+        encoding,
+        this.state.separator,
+        this.state.useUppercase
+      )
     });
   }
   
   handleSpacesChange = (checked) => {
-    // this.state.separator = checked ? ' ' : '';
-    this.setState(DataView.updateValue(this.props, this.state));
+    const separator = checked ? ' ' : '';
+    this.setState({
+      separator,
+      value: DataView.updateValue(
+        this.props,
+        this.state.encoding,
+        separator,
+        this.state.useUppercase
+      )
+    });
   }
 
-  handleCaseChange = (checked) => {
-    this.state.useUppercase = checked;
-    // this.setState({
-    //   value: this.props.format(this.props.text, this.state.codec)
-    // });
-    this.setState(DataView.updateValue(this.props, this.state));
+  handleCaseChange = (useUppercase) => {
+    this.setState({
+      useUppercase,
+      value: DataView.updateValue(
+        this.props,
+        this.state.encoding,
+        this.state.separator,
+        useUppercase
+      )
+    });
   }
 
   render() {
@@ -102,7 +108,9 @@ class DataView extends Component {
           spellCheck="false"
           onChange={this.handleChange}
           value={this.state.value}/>
-        {this.props.children}
+        <FormattingOptions
+          onSpacesChange={this.props.spaces && this.handleSpacesChange}
+          onCaseChange={this.props.uppercase && this.handleCaseChange}/>
       </div>
     )
   }

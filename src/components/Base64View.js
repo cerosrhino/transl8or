@@ -3,6 +3,10 @@ import DataView from './DataView';
 import codec from '../Codec';
 
 class Base64View extends Component {
+  filter = (input) => {
+    return input.replace(/[^a-z0-9+/=]/gi, '');
+  }
+  
   format = (input, encoding) => {
     return btoa(codec.encode(input, encoding).join('')).split('');
   }
@@ -15,10 +19,6 @@ class Base64View extends Component {
     return codec.decode(atob(input).split(''), encoding);
   }
 
-  filter(input) {
-    return input.replace(/[^a-z0-9+/=]/gi, '');
-  }
-  
   render() {
     return (
       <DataView

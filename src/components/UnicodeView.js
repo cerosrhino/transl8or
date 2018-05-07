@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import DataView from './DataView';
-import Title from './Title';
 
 class UnicodeView extends Component {
   filter = (input) => {

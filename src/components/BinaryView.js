@@ -3,11 +3,14 @@ import DataView from './DataView';
 import codec from '../Codec';
 
 class BinaryView extends Component {
+  filter = (input) => {
+    return input.replace(/[^01\s]/g, '');
+  }
+
   format = (input, encoding) => {
     return codec
       .encode(input, encoding)
       .map(el => el.charCodeAt(0).toString(2).padStart(8, '0'));
-      // .join(this.separator);
   }
 
   parse = (input, encoding) => {
@@ -22,10 +25,6 @@ class BinaryView extends Component {
     ).split(''), encoding);
   }
 
-  filter(input) {
-    return input.replace(/[^01\s]/g, '');
-  }
-
   render() {
     return (
       <DataView
@@ -35,7 +34,7 @@ class BinaryView extends Component {
         parse={this.parse}
         text={this.props.text}
         onChange={this.props.onChange}
-        onSpacesChange={this.handleSpacesChange}/>
+        spaces={true}/>
     );
   }
 }
