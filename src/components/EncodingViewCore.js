@@ -10,7 +10,6 @@ class EncodingViewCore extends Component {
 
     this.state = {
       value: '',
-      serializedOptions: 0,
       error: false
     };
   }
@@ -63,7 +62,7 @@ class EncodingViewCore extends Component {
   }
   
   handleEncodingChange = (encoding) => {
-    let serializedOptions = this.state.serializedOptions & 0b00011111;
+    let serializedOptions = this.props.serializedOptions & 0b00011111;
     serializedOptions |= (encoding << 5);
     this.props.onSerialize(serializedOptions);
 
@@ -74,7 +73,7 @@ class EncodingViewCore extends Component {
   }
   
   handleSpacesChange = (useSpaces) => {
-    let serializedOptions = this.state.serializedOptions & 0b11101111;
+    let serializedOptions = this.props.serializedOptions & 0b11101111;
     serializedOptions |= (useSpaces << 4);
     this.props.onSerialize(serializedOptions);
 
@@ -85,7 +84,7 @@ class EncodingViewCore extends Component {
   }
 
   handleCaseChange = (useUppercase) => {
-    let serializedOptions = this.state.serializedOptions & 0b11110111;
+    let serializedOptions = this.props.serializedOptions & 0b11110111;
     serializedOptions |= (useUppercase << 3);
     this.props.onSerialize(serializedOptions);
 
