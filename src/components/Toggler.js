@@ -10,6 +10,12 @@ class Toggler extends Component {
     };
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return {
+      checked: nextProps.checked
+    };
+  }
+
   handleChange = (event) => {
     this.setState({
       checked: event.target.checked

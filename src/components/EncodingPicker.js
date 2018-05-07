@@ -15,7 +15,8 @@ class EncodingPicker extends Component {
     return (
       <select
         className="encoding-picker"
-        onChange={this.handleChange}>
+        onChange={this.handleChange}
+        value={this.props.encoding}>
         {
           Codec.encodings().map(
             (el, index) => <option key={index} value={index}>{el}</option>
