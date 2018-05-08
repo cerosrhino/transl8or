@@ -20,8 +20,8 @@ class HexView extends Component {
     }
 
     return codec.decode(input.replace(
-      /(.{2})/g,
-      (_, match) => String.fromCharCode(parseInt(match, 16))
+      /.{2}/g,
+      (match) => String.fromCharCode(parseInt(match, 16))
     ).split(''), encoding);
   }
 

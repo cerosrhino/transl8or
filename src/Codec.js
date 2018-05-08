@@ -11,7 +11,7 @@ function encode(text, encoding) {
     case 'UTF-8':
       return encodeURIComponent(text).replace(
         /%([0-9a-f]{2})/gi,
-        (_, match) => String.fromCharCode(parseInt(match, 16))
+        (match, p1) => String.fromCharCode(parseInt(p1, 16))
       ).split('');
     case 'UTF-16LE':
       return encodeUTF16(text, true);

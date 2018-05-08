@@ -20,8 +20,8 @@ class BinaryView extends Component {
     }
 
     return codec.decode(input.replace(
-      /(.{8})/g,
-      (_, match) => String.fromCharCode(parseInt(match, 2))
+      /.{8}/g,
+      (match) => String.fromCharCode(parseInt(match, 2))
     ).split(''), encoding);
   }
 
