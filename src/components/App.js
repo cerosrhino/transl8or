@@ -15,6 +15,22 @@ class App extends Component {
     };
   }
 
+  unescapeFromURL(escapedText) {
+    return escapedText
+      .replace(/(@*)_/g, (match, p1) => {
+        return (p1.length % 2 === 0) ? (p1 + ' ') : match
+      })
+      .replace(/@_/g, '_')
+      .replace(/@@/g, '@');
+  }
+
+  escapeToURL(text) {
+    return text
+      .replace(/@/g, '@@')
+      .replace(/_/g, '@_')
+      .replace(/ /g, '_');
+  }
+
   componentDidMount() {
     if (window.location.hash.length < 7) {
       return;
@@ -24,7 +40,9 @@ class App extends Component {
     const serializedOptions = atob(base64).split('').map(
       el => el.charCodeAt(0)
     );
-    const text = decodeURIComponent(window.location.hash.slice(7));
+    const text = this.unescapeFromURL(decodeURIComponent(
+      window.location.hash.slice(7)
+    ));
 
     this.setState({
       serializedOptions,
@@ -51,7 +69,9 @@ class App extends Component {
     const toBase64 = this.state.serializedOptions.map(
       el => String.fromCharCode(el)
     ).join('');
-    window.location.hash = '/' + btoa(toBase64) + '/' + this.state.text;
+    const text = encodeURI(this.escapeToURL(this.state.text));
+
+    window.location.hash = '/' + btoa(toBase64) + '/' + text;
   }
   
   render() {
