@@ -72,12 +72,15 @@ class App extends Component {
     const text = encodeURI(this.escapeToURL(this.state.text));
 
     window.location.hash = '/' + btoa(toBase64) + '/' + text;
+
+    window.alert('The URL has been changed.');
   }
   
   render() {
     return (
-      <div id="app">
-        <div id="app__grid">
+      <div className="app">
+        <h1 className="app__title">Transl8or</h1>
+        <div className="app__grid">
           <UnicodeView
             text={this.state.text}
             onChange={this.handleChange}/>
@@ -97,7 +100,17 @@ class App extends Component {
             serializedOptions={this.state.serializedOptions[2]}
             onSerialize={this.handleSerialize.bind(this, 2)}/>
         </div>
-        <button onClick={this.handleShare}>Share</button>
+        <button
+          className="app__share-button"
+          onClick={this.handleShare}>Get share link</button>
+        <p className="app-info">
+          created by Witold Sieraczyński<br/>
+          <a 
+            className="app-info__link"
+            href="https://github.com/cerosrhino/transl8or">
+              source code on GitHub
+          </a>
+        </p>
       </div>
     );
   }
